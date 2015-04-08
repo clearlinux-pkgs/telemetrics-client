@@ -1,0 +1,10 @@
+mkdir %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
+ln -s ../telemd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telemd.path
+mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
+ln -s ../telemd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemd.socket
+mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
+ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
+ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
+ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
+ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
+ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service

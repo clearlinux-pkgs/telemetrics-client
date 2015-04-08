@@ -1,0 +1,8 @@
+libtelemetry.so.3:TM_1_0_0
+libtelemetry.so.3:TM_2_0_0
+libtelemetry.so.3:TM_3_0_0
+libtelemetry.so.3:tm_create_record
+libtelemetry.so.3:tm_free_record
+libtelemetry.so.3:tm_send_record
+libtelemetry.so.3:tm_set_config_file
+libtelemetry.so.3:tm_set_payload
