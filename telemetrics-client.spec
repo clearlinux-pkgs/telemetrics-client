@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.10.1
-Release  : 64
+Release  : 65
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.10.1/telemetrics-client-1.10.1.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.10.1/telemetrics-client-1.10.1.tar.gz
 Summary  : Telemetrics library
@@ -21,6 +21,7 @@ BuildRequires : pkgconfig(check)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libcurl)
 BuildRequires : pkgconfig(libsystemd)
+Patch1: dont-destroy-the-backptrace.patch
 
 %description
 telemetrics-client
@@ -95,9 +96,11 @@ lib components for the telemetrics-client package.
 
 %prep
 %setup -q -n telemetrics-client-1.10.1
+%patch1 -p1
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1485620108
 export CFLAGS="$CFLAGS -Os -ffunction-sections "
 export FCFLAGS="$CFLAGS -Os -ffunction-sections "
 export FFLAGS="$CFLAGS -Os -ffunction-sections "
@@ -110,9 +113,10 @@ export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
+export SOURCE_DATE_EPOCH=1485620108
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
@@ -184,8 +188,8 @@ ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.targ
 %files dev
 %defattr(-,root,root,-)
 /usr/include/*.h
-/usr/lib64/*.so
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/libtelemetry.so
+/usr/lib64/pkgconfig/libtelemetry.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -195,4 +199,5 @@ ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.targ
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
+/usr/lib64/libtelemetry.so.3
+/usr/lib64/libtelemetry.so.3.0.0
