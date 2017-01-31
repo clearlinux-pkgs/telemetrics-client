@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.10.1
-Release  : 65
+Release  : 66
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.10.1/telemetrics-client-1.10.1.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.10.1/telemetrics-client-1.10.1.tar.gz
 Summary  : Telemetrics library
@@ -22,6 +22,7 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libcurl)
 BuildRequires : pkgconfig(libsystemd)
 Patch1: dont-destroy-the-backptrace.patch
+Patch2: prime.patch
 
 %description
 telemetrics-client
@@ -97,10 +98,11 @@ lib components for the telemetrics-client package.
 %prep
 %setup -q -n telemetrics-client-1.10.1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1485620108
+export SOURCE_DATE_EPOCH=1485831178
 export CFLAGS="$CFLAGS -Os -ffunction-sections "
 export FCFLAGS="$CFLAGS -Os -ffunction-sections "
 export FFLAGS="$CFLAGS -Os -ffunction-sections "
@@ -116,7 +118,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1485620108
+export SOURCE_DATE_EPOCH=1485831178
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
