@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.10.2
-Release  : 67
+Release  : 68
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.10.2/telemetrics-client-1.10.2.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.10.2/telemetrics-client-1.10.2.tar.gz
 Summary  : Telemetrics library
