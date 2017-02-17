@@ -8,3 +8,4 @@ ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.tar
 ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
 ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
 ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
+ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
