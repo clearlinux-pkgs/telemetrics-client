@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.11.2
-Release  : 71
+Release  : 72
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.11.2/telemetrics-client-1.11.2.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.11.2/telemetrics-client-1.11.2.tar.gz
 Summary  : Telemetrics library
@@ -98,12 +98,18 @@ lib components for the telemetrics-client package.
 %setup -q -n telemetrics-client-1.11.2
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1491498440
-export CFLAGS="$CFLAGS -Os -ffunction-sections "
-export FCFLAGS="$CFLAGS -Os -ffunction-sections "
-export FFLAGS="$CFLAGS -Os -ffunction-sections "
-export CXXFLAGS="$CXXFLAGS -Os -ffunction-sections "
+export SOURCE_DATE_EPOCH=1493646435
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -111,11 +117,11 @@ make V=1  %{?_smp_mflags}
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1491498440
+export SOURCE_DATE_EPOCH=1493646435
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
