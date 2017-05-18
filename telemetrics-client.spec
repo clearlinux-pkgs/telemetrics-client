@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.12.0
-Release  : 76
+Release  : 77
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.12.0/telemetrics-client-1.12.0.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.12.0/telemetrics-client-1.12.0.tar.gz
 Summary  : Telemetrics library
@@ -102,7 +102,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1494534648
+export SOURCE_DATE_EPOCH=1495146126
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -121,7 +121,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1494534648
+export SOURCE_DATE_EPOCH=1495146126
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
@@ -135,7 +135,6 @@ ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.tar
 ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
 ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
 ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
-ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 ## make_install_append end
 
 %files
@@ -143,7 +142,6 @@ ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.ta
 
 %files autostart
 %defattr(-,root,root,-)
-/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 /usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
 /usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
 /usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
@@ -167,7 +165,6 @@ ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.ta
 
 %files config
 %defattr(-,root,root,-)
-%exclude /usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 %exclude /usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
 %exclude /usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
 %exclude /usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
