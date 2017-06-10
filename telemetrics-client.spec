@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.12.2
-Release  : 79
+Release  : 80
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.12.2/telemetrics-client-1.12.2.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.12.2/telemetrics-client-1.12.2.tar.gz
 Summary  : Telemetrics library
@@ -21,6 +21,7 @@ BuildRequires : pkgconfig(libcurl)
 BuildRequires : pkgconfig(libdw)
 BuildRequires : pkgconfig(libelf)
 BuildRequires : pkgconfig(libsystemd)
+Patch1: memleak.patch
 
 %description
 No detailed description available
@@ -91,13 +92,14 @@ lib components for the telemetrics-client package.
 
 %prep
 %setup -q -n telemetrics-client-1.12.2
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1497042559
+export SOURCE_DATE_EPOCH=1497105831
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -116,7 +118,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1497042559
+export SOURCE_DATE_EPOCH=1497105831
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
