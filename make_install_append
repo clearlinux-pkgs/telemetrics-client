@@ -4,6 +4,8 @@ mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
 ln -s ../telemd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemd.socket
 mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
 ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
+mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
+ln -s ../telemd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemd-update-trigger.service
 ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
 ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
 ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
