@@ -11,4 +11,3 @@ ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.tar
 ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
 ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
 ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
-ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/bert-probe.service
