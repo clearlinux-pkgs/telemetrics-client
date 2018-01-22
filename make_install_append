@@ -12,3 +12,6 @@ ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.targe
 ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
 ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/bert-probe.service
+mkdir -p %{buildroot}/usr/share/clr-service-restart
+ln -sf /usr/lib/systemd/system/oops-probe.service %{buildroot}/usr/share/clr-service-restart/oops-probe.service
+ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
