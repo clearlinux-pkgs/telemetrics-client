@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 1.14.3
-Release  : 87
+Release  : 88
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v1.14.3/telemetrics-client-1.14.3.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v1.14.3/telemetrics-client-1.14.3.tar.gz
 Summary  : Telemetrics library
@@ -96,7 +96,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1515438697
+export SOURCE_DATE_EPOCH=1516647820
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -105,7 +105,7 @@ export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sec
 export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 %configure --disable-static
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
@@ -115,7 +115,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1515438697
+export SOURCE_DATE_EPOCH=1516647820
 rm -rf %{buildroot}
 %make_install
 ## make_install_append content
@@ -133,6 +133,9 @@ ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.targe
 ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
 ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/bert-probe.service
+mkdir -p %{buildroot}/usr/share/clr-service-restart
+ln -sf /usr/lib/systemd/system/oops-probe.service %{buildroot}/usr/share/clr-service-restart/oops-probe.service
+ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
 ## make_install_append end
 
 %files
@@ -194,6 +197,8 @@ ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.targ
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/clr-service-restart/klogscanner.service
+/usr/share/clr-service-restart/oops-probe.service
 /usr/share/defaults/telemetrics/telemetrics.conf
 
 %files dev
