@@ -1,11 +1,11 @@
 mkdir %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
-ln -s ../telemd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telemd.path
+ln -s ../telempostd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telempostd.path
 mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
-ln -s ../telemd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemd.socket
+ln -s ../telemprobd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
 mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
 ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
 mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
-ln -s ../telemd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemd-update-trigger.service
+ln -s ../telemprobd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
 ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
 ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
 ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
@@ -15,3 +15,4 @@ ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.targ
 mkdir -p %{buildroot}/usr/share/clr-service-restart
 ln -sf /usr/lib/systemd/system/oops-probe.service %{buildroot}/usr/share/clr-service-restart/oops-probe.service
 ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
+ln -s /usr/lib/systemd/system/telemd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemd-update-trigger.service

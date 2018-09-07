@@ -1,0 +1,10 @@
+[Unit]
+Description=Transition between telemd and telempostd
+ConditionPathExists=!/var/log/telemetry/telemd-update-trigger.done
+BindsTo=update-triggers.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/systemctl stop telemd.service
+ExecStart=/usr/bin/telemctl start
+ExecStartPost=/usr/bin/touch /var/log/telemetry/telemd-update-trigger.done
