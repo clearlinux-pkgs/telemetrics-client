@@ -1,6 +1,8 @@
 [Unit]
 Description=Transition between telemd and telempostd
 ConditionPathExists=!/var/log/telemetry/telemd-update-trigger.done
+ConditionPathExists=/usr/lib/systemd/system/telemd.service
+
 BindsTo=update-triggers.target
 
 [Service]
