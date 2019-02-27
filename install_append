@@ -8,11 +8,10 @@ mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
 ln -s ../telemprobd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
 ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
 ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
-ln -s ../oops-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/oops-probe.service
+ln -s ../python-probe.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/python-probe.path
 ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
 ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/bert-probe.service
 mkdir -p %{buildroot}/usr/share/clr-service-restart
-ln -sf /usr/lib/systemd/system/oops-probe.service %{buildroot}/usr/share/clr-service-restart/oops-probe.service
 ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
 ln -s /usr/lib/systemd/system/telemd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemd-update-trigger.service
