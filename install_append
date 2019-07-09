@@ -14,4 +14,3 @@ ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.ta
 ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/bert-probe.service
 mkdir -p %{buildroot}/usr/share/clr-service-restart
 ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
-ln -s /usr/lib/systemd/system/telemd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemd-update-trigger.service
