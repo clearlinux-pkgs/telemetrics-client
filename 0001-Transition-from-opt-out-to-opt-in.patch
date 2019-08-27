@@ -1,0 +1,48 @@
+From af89aa0f3137e2410fa4d6d52088a4f98257375f Mon Sep 17 00:00:00 2001
+From: Alex Jaramillo <alex.v.jaramillo@intel.com>
+Date: Tue, 27 Aug 2019 21:39:27 +0000
+Subject: [PATCH telemetrics-client] Transition from opt-out to opt-in
+
+Signed-off-by: Alex Jaramillo <alex.v.jaramillo@intel.com>
+---
+ telem_update | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+ create mode 100644 telem_update
+
+diff --git a/telem_update b/telem_update
+new file mode 100644
+index 0000000..99d79f0
+--- /dev/null
++++ b/telem_update
+@@ -0,0 +1,28 @@
++#!/bin/bash
++
++# Telemetrics will change from OPT-OUT to OPT-IN requiring
++# 2 steps the first time this package is installed, this
++# script makes sure to add the opt-in file to systems that
++# are already reporting telemetry because the implicit opt-in
++# after installing package.
++
++# Quit if already opt-out
++if [ -f "/etc/telemetrics/opt-out" ]; then
++    exit 0
++fi
++
++# Quit if service inactive
++result=$(systemctl is-active telempostd.service)
++if [ "$result" = "inactive" ]; then
++    exit 0
++fi
++
++# Quit if already opt-in
++if [ -f "/etc/telemetrics/opt-in" ]; then
++    exit 0
++fi
++
++# Opt-in when all other conditions are not meet
++mkdir -p /etc/telemetrics
++touch /etc/telemetrics/opt-in
++exit 0
+--
+2.23.0
+
