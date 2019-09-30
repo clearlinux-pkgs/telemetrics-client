@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 2.2.2
-Release  : 102
+Release  : 103
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v2.2.2/telemetrics-client-2.2.2.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v2.2.2/telemetrics-client-2.2.2.tar.gz
 Summary  : Telemetrics library
@@ -122,7 +122,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1569602444
+export SOURCE_DATE_EPOCH=1569877930
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -142,7 +142,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1569602444
+export SOURCE_DATE_EPOCH=1569877930
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/telemetrics-client
 cp LICENSE.LGPL-2.1 %{buildroot}/usr/share/package-licenses/telemetrics-client/LICENSE.LGPL-2.1
@@ -166,7 +166,7 @@ ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.ta
 ln -s ../bert-probe.service  %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/bert-probe.service
 mkdir -p %{buildroot}/usr/share/clr-service-restart
 ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
-install -m0544 telem_update %{buildroot}/usr/bin/telem_update
+install -m0755 telem_update %{buildroot}/usr/bin/telem_update
 ## install_append end
 
 %files

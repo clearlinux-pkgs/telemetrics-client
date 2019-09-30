@@ -5,8 +5,8 @@ Subject: [PATCH telemetrics-client] Transition from opt-out to opt-in
 
 Signed-off-by: Alex Jaramillo <alex.v.jaramillo@intel.com>
 ---
- telem_update | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ telem_update | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
  create mode 100644 telem_update
 
 diff --git a/telem_update b/telem_update
@@ -14,7 +14,7 @@ new file mode 100644
 index 0000000..99d79f0
 --- /dev/null
 +++ b/telem_update
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,22 @@
 +#!/bin/bash
 +
 +# Telemetrics will change from OPT-OUT to OPT-IN requiring
@@ -25,12 +25,6 @@ index 0000000..99d79f0
 +
 +# Quit if already opt-out
 +if [ -f "/etc/telemetrics/opt-out" ]; then
-+    exit 0
-+fi
-+
-+# Quit if service inactive
-+result=$(systemctl is-active telempostd.service)
-+if [ "$result" = "inactive" ]; then
 +    exit 0
 +fi
 +
