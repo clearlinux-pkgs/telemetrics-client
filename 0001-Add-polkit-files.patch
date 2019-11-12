@@ -1,0 +1,78 @@
+From 4c3ec6b56921a1501af88eac13ef71328e2d8bed Mon Sep 17 00:00:00 2001
+From: Juro Bystricky <juro.bystricky@intel.com>
+Date: Tue, 12 Nov 2019 10:04:27 -0800
+Subject: [PATCH telemetrics-client] Add polkit files
+
+Signed-off-by: Juro Bystricky <juro.bystricky@intel.com>
+---
+ org.clearlinux.telemetry.policy | 39 +++++++++++++++++++++++++++++++++
+ org.clearlinux.telemetry.rules  | 11 ++++++++++
+ 2 files changed, 50 insertions(+)
+ create mode 100644 org.clearlinux.telemetry.policy
+ create mode 100644 org.clearlinux.telemetry.rules
+
+diff --git a/org.clearlinux.telemetry.policy b/org.clearlinux.telemetry.policy
+new file mode 100644
+index 0000000..2d0573c
+--- /dev/null
++++ b/org.clearlinux.telemetry.policy
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN" "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
++<policyconfig>
++  <vendor>Clear Linux OS telemetry control</vendor>
++  <vendor_url>https://github.com/clearlinux/telemetrics-client</vendor_url>
++  <action id="org.clearlinux.telemctl.opt-out">
++    <description>Opt-out from telemetry</description>
++    <message>Opt-out from telemetry</message>
++    <defaults>
++      <allow_any>auth_admin</allow_any>
++      <allow_inactive>no</allow_inactive>
++      <allow_active>auth_admin_keep</allow_active>
++    </defaults>
++    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/telemctl</annotate>
++    <annotate key="org.freedesktop.policykit.exec.argv1">opt-out</annotate>
++  </action>
++  <action id="org.clearlinux.telemctl.opt-in">
++    <description>Opt-in to telemetry</description>
++    <message>Opt-in to telemetry</message>
++    <defaults>
++      <allow_any>auth_admin</allow_any>
++      <allow_inactive>no</allow_inactive>
++      <allow_active>auth_admin_keep</allow_active>
++    </defaults>
++    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/telemctl</annotate>
++    <annotate key="org.freedesktop.policykit.exec.argv1">opt-in</annotate>
++  </action>
++    <action id="org.clearlinux.telemctl.start">
++    <description>Start telemetry services</description>
++    <message>Start telemetry services</message>
++    <defaults>
++      <allow_any>auth_admin</allow_any>
++      <allow_inactive>no</allow_inactive>
++      <allow_active>auth_admin_keep</allow_active>
++    </defaults>
++    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/telemctl</annotate>
++    <annotate key="org.freedesktop.policykit.exec.argv1">start</annotate>
++  </action>
++</policyconfig>
+diff --git a/org.clearlinux.telemetry.rules b/org.clearlinux.telemetry.rules
+new file mode 100644
+index 0000000..47b454a
+--- /dev/null
++++ b/org.clearlinux.telemetry.rules
+@@ -0,0 +1,11 @@
++polkit.addRule(function(action, subject) {
++    if (action.id == "org.clearlinux.telemctl.opt-in" ||
++        action.id == "org.clearlinux.telemctl.opt-out" ||
++        action.id == "org.clearlinux.telemctl.start") {
++            if (subject.isInGroup("wheel")) {
++                return polkit.Result.YES;
++            } else {
++                return polkit.Result.AUTH_ADMIN_KEEP;
++            }
++    }
++});
+-- 
+2.23.0
+
