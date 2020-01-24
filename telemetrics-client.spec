@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 2.3.3
-Release  : 110
+Release  : 111
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v2.3.3/telemetrics-client-2.3.3.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v2.3.3/telemetrics-client-2.3.3.tar.gz
 Summary  : Telemetrics library
@@ -23,6 +23,7 @@ BuildRequires : pkgconfig(libcurl)
 BuildRequires : pkgconfig(libdw)
 BuildRequires : pkgconfig(libelf)
 BuildRequires : pkgconfig(libsystemd)
+BuildRequires : valgrind
 Patch1: 0001-Transition-from-opt-out-to-opt-in.patch
 Patch2: 0002-Execute-opt-in-update-during-PreStart.patch
 Patch3: 0001-Add-polkit-files.patch
@@ -125,7 +126,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578669133
+export SOURCE_DATE_EPOCH=1579887077
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -145,7 +146,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1578669133
+export SOURCE_DATE_EPOCH=1579887077
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/telemetrics-client
 cp %{_builddir}/telemetrics-client-2.3.3/LICENSE.LGPL-2.1 %{buildroot}/usr/share/package-licenses/telemetrics-client/01a6b4bf79aca9b556822601186afab86e8c4fbf
