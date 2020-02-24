@@ -12,7 +12,6 @@ ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.targ
 ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
 mkdir -p %{buildroot}/usr/share/clr-service-restart
 ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
-install -m0755 telem_update %{buildroot}/usr/bin/telem_update
 mkdir -p %{buildroot}/usr/share/polkit-1/actions
 mkdir -p %{buildroot}/usr/share/polkit-1/rules.d
 install -m644 org.clearlinux.telemetry.policy %{buildroot}/usr/share/polkit-1/actions/
