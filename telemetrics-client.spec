@@ -4,7 +4,7 @@
 #
 Name     : telemetrics-client
 Version  : 2.3.5
-Release  : 115
+Release  : 116
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v2.3.5/telemetrics-client-2.3.5.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v2.3.5/telemetrics-client-2.3.5.tar.gz
 Summary  : Telemetrics library
@@ -122,14 +122,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582586871
+export SOURCE_DATE_EPOCH=1604873575
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 %configure --disable-static
 make  %{?_smp_mflags}
@@ -139,10 +139,10 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1582586871
+export SOURCE_DATE_EPOCH=1604873575
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/telemetrics-client
 cp %{_builddir}/telemetrics-client-2.3.5/LICENSE.LGPL-2.1 %{buildroot}/usr/share/package-licenses/telemetrics-client/01a6b4bf79aca9b556822601186afab86e8c4fbf
