@@ -1,3 +1,18 @@
 # This file contains the output files that need %exclude. Full path
 # names, one per line.
 /usr/lib/sysctl.d/40-crash-probe.conf
+/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
+/usr/lib/systemd/system/timers.target.wants/hprobe.timer
+/usr/lib/systemd/system/hprobe.service
+/usr/lib/systemd/system/hprobe.timer
+/usr/lib/systemd/system/journal-probe-tail.service
+/usr/lib/systemd/system/journal-probe.service
+/usr/lib/systemd/system/klogscanner.service
+/usr/lib/systemd/system/pstore-clean.service
+/usr/lib/systemd/system/pstore-probe.service
+/usr/lib/systemd/system/telempostd.path
+/usr/lib/systemd/system/telempostd.service
+/usr/lib/systemd/system/telemprobd-update-trigger.service
+/usr/lib/systemd/system/telemprobd.service
+/usr/lib/systemd/system/telemprobd.socket
+/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service

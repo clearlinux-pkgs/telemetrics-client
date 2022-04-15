@@ -4,20 +4,18 @@
 #
 Name     : telemetrics-client
 Version  : 2.3.5
-Release  : 116
+Release  : 118
 URL      : https://github.com/clearlinux/telemetrics-client/releases/download/v2.3.5/telemetrics-client-2.3.5.tar.gz
 Source0  : https://github.com/clearlinux/telemetrics-client/releases/download/v2.3.5/telemetrics-client-2.3.5.tar.gz
 Summary  : Telemetrics library
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: telemetrics-client-autostart = %{version}-%{release}
 Requires: telemetrics-client-bin = %{version}-%{release}
 Requires: telemetrics-client-config = %{version}-%{release}
 Requires: telemetrics-client-data = %{version}-%{release}
 Requires: telemetrics-client-lib = %{version}-%{release}
 Requires: telemetrics-client-license = %{version}-%{release}
 Requires: telemetrics-client-man = %{version}-%{release}
-Requires: telemetrics-client-services = %{version}-%{release}
 BuildRequires : pkgconfig(check)
 BuildRequires : pkgconfig(libcurl)
 BuildRequires : pkgconfig(libdw)
@@ -29,21 +27,12 @@ Patch1: 0001-Add-polkit-files.patch
 %description
 No detailed description available
 
-%package autostart
-Summary: autostart components for the telemetrics-client package.
-Group: Default
-
-%description autostart
-autostart components for the telemetrics-client package.
-
-
 %package bin
 Summary: bin components for the telemetrics-client package.
 Group: Binaries
 Requires: telemetrics-client-data = %{version}-%{release}
 Requires: telemetrics-client-config = %{version}-%{release}
 Requires: telemetrics-client-license = %{version}-%{release}
-Requires: telemetrics-client-services = %{version}-%{release}
 
 %description bin
 bin components for the telemetrics-client package.
@@ -104,14 +93,6 @@ Group: Default
 man components for the telemetrics-client package.
 
 
-%package services
-Summary: services components for the telemetrics-client package.
-Group: Systemd services
-
-%description services
-services components for the telemetrics-client package.
-
-
 %prep
 %setup -q -n telemetrics-client-2.3.5
 cd %{_builddir}/telemetrics-client-2.3.5
@@ -122,15 +103,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604873575
+export SOURCE_DATE_EPOCH=1650043724
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -142,47 +123,52 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1604873575
+export SOURCE_DATE_EPOCH=1650043724
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/telemetrics-client
 cp %{_builddir}/telemetrics-client-2.3.5/LICENSE.LGPL-2.1 %{buildroot}/usr/share/package-licenses/telemetrics-client/01a6b4bf79aca9b556822601186afab86e8c4fbf
 %make_install
 ## Remove excluded files
-rm -f %{buildroot}/usr/lib/sysctl.d/40-crash-probe.conf
+rm -f %{buildroot}*/usr/lib/sysctl.d/40-crash-probe.conf
+rm -f %{buildroot}*/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
+rm -f %{buildroot}*/usr/lib/systemd/system/timers.target.wants/hprobe.timer
+rm -f %{buildroot}*/usr/lib/systemd/system/hprobe.service
+rm -f %{buildroot}*/usr/lib/systemd/system/hprobe.timer
+rm -f %{buildroot}*/usr/lib/systemd/system/journal-probe-tail.service
+rm -f %{buildroot}*/usr/lib/systemd/system/journal-probe.service
+rm -f %{buildroot}*/usr/lib/systemd/system/klogscanner.service
+rm -f %{buildroot}*/usr/lib/systemd/system/pstore-clean.service
+rm -f %{buildroot}*/usr/lib/systemd/system/pstore-probe.service
+rm -f %{buildroot}*/usr/lib/systemd/system/telempostd.path
+rm -f %{buildroot}*/usr/lib/systemd/system/telempostd.service
+rm -f %{buildroot}*/usr/lib/systemd/system/telemprobd-update-trigger.service
+rm -f %{buildroot}*/usr/lib/systemd/system/telemprobd.service
+rm -f %{buildroot}*/usr/lib/systemd/system/telemprobd.socket
+rm -f %{buildroot}*/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
 ## install_append content
-mkdir %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
-ln -s ../telempostd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telempostd.path
-mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
-ln -s ../telemprobd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
-mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
-ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
-mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
-ln -s ../telemprobd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
-ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
-ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
-ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
-ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
-mkdir -p %{buildroot}/usr/share/clr-service-restart
-ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
-mkdir -p %{buildroot}/usr/share/polkit-1/actions
-mkdir -p %{buildroot}/usr/share/polkit-1/rules.d
-install -m644 org.clearlinux.telemetry.policy %{buildroot}/usr/share/polkit-1/actions/
-install -m644 org.clearlinux.telemetry.rules %{buildroot}/usr/share/polkit-1/rules.d/
+#mkdir %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
+#ln -s ../telempostd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telempostd.path
+#mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
+#ln -s ../telemprobd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
+#mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
+#ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
+#mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
+#ln -s ../telemprobd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
+#ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
+#ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
+#ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
+#ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
+#mkdir -p %{buildroot}/usr/share/clr-service-restart
+#ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
+#mkdir -p %{buildroot}/usr/share/polkit-1/actions
+#mkdir -p %{buildroot}/usr/share/polkit-1/rules.d
+#install -m644 org.clearlinux.telemetry.policy %{buildroot}/usr/share/polkit-1/actions/
+#install -m644 org.clearlinux.telemetry.rules %{buildroot}/usr/share/polkit-1/rules.d/
 ## install_append end
 
 %files
 %defattr(-,root,root,-)
 /usr/lib/systemd/system.conf.d/40-core-ulimit.conf
-
-%files autostart
-%defattr(-,root,root,-)
-/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
-/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
-/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
-/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
-/usr/lib/systemd/system/multi-user.target.wants/telempostd.path
-/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
-/usr/lib/systemd/system/timers.target.wants/hprobe.timer
 
 %files bin
 %defattr(-,root,root,-)
@@ -204,10 +190,7 @@ install -m644 org.clearlinux.telemetry.rules %{buildroot}/usr/share/polkit-1/rul
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/clr-service-restart/klogscanner.service
 /usr/share/defaults/telemetrics/telemetrics.conf
-/usr/share/polkit-1/actions/org.clearlinux.telemetry.policy
-/usr/share/polkit-1/rules.d/org.clearlinux.telemetry.rules
 
 %files dev
 %defattr(-,root,root,-)
@@ -236,26 +219,3 @@ install -m644 org.clearlinux.telemetry.rules %{buildroot}/usr/share/polkit-1/rul
 /usr/share/man/man1/telempostd.1
 /usr/share/man/man1/telemprobd.1
 /usr/share/man/man5/telemetrics.conf.5
-
-%files services
-%defattr(-,root,root,-)
-%exclude /usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
-%exclude /usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
-%exclude /usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
-%exclude /usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
-%exclude /usr/lib/systemd/system/multi-user.target.wants/telempostd.path
-%exclude /usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
-%exclude /usr/lib/systemd/system/timers.target.wants/hprobe.timer
-/usr/lib/systemd/system/hprobe.service
-/usr/lib/systemd/system/hprobe.timer
-/usr/lib/systemd/system/journal-probe-tail.service
-/usr/lib/systemd/system/journal-probe.service
-/usr/lib/systemd/system/klogscanner.service
-/usr/lib/systemd/system/pstore-clean.service
-/usr/lib/systemd/system/pstore-probe.service
-/usr/lib/systemd/system/telempostd.path
-/usr/lib/systemd/system/telempostd.service
-/usr/lib/systemd/system/telemprobd-update-trigger.service
-/usr/lib/systemd/system/telemprobd.service
-/usr/lib/systemd/system/telemprobd.socket
-/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service

@@ -1,18 +1,18 @@
-mkdir %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
-ln -s ../telempostd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telempostd.path
-mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
-ln -s ../telemprobd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
-mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
-ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
-mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
-ln -s ../telemprobd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
-ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
-ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
-ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
-ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
-mkdir -p %{buildroot}/usr/share/clr-service-restart
-ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
-mkdir -p %{buildroot}/usr/share/polkit-1/actions
-mkdir -p %{buildroot}/usr/share/polkit-1/rules.d
-install -m644 org.clearlinux.telemetry.policy %{buildroot}/usr/share/polkit-1/actions/
-install -m644 org.clearlinux.telemetry.rules %{buildroot}/usr/share/polkit-1/rules.d/
+#mkdir %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
+#ln -s ../telempostd.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/telempostd.path
+#mkdir %{buildroot}/usr/lib/systemd/system/sockets.target.wants
+#ln -s ../telemprobd.socket %{buildroot}/usr/lib/systemd/system/sockets.target.wants/telemprobd.socket
+#mkdir %{buildroot}/usr/lib/systemd/system/timers.target.wants
+#ln -s ../hprobe.timer %{buildroot}/usr/lib/systemd/system/timers.target.wants/hprobe.timer
+#mkdir %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants
+#ln -s ../telemprobd-update-trigger.service %{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/telemprobd-update-trigger.service
+#ln -s ../pstore-clean.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-clean.service
+#ln -s ../pstore-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/pstore-probe.service
+#ln -s ../klogscanner.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/klogscanner.service
+#ln -s ../journal-probe.service %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/journal-probe.service
+#mkdir -p %{buildroot}/usr/share/clr-service-restart
+#ln -sf /usr/lib/systemd/system/klogscanner.service %{buildroot}/usr/share/clr-service-restart/klogscanner.service
+#mkdir -p %{buildroot}/usr/share/polkit-1/actions
+#mkdir -p %{buildroot}/usr/share/polkit-1/rules.d
+#install -m644 org.clearlinux.telemetry.policy %{buildroot}/usr/share/polkit-1/actions/
+#install -m644 org.clearlinux.telemetry.rules %{buildroot}/usr/share/polkit-1/rules.d/
